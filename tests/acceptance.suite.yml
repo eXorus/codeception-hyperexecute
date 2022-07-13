@@ -11,6 +11,12 @@ modules:
               url: "https://openclassrooms.com"
               host: '%LT_USERNAME%:%LT_ACCESS_KEY%@hub.lambdatest.com'
               port: 80
-              browser: chrome
+              browser: 'chrome'
+              capabilities:
+                name: 'codeception-hyperexecute'
+                build: 'codeception-hyperexecute'
+                browser: 'chrome'
+                platform: 'Windows 10'
+                version: 'latest'
         - \Helper\Acceptance
 step_decorators: ~

@@ -11,7 +11,7 @@ class LoginCest
         $I->waitForElementClickable('a.required');
         $I->click('a.required');
 
-        $I->waitForElementVisible('#fielduserEmail', 30);
+        $I->waitForElementVisible('#fielduserEmail', 60);
         $I->fillField("#fielduserEmail", "hyperexecute@mc5.email");
         $I->waitForElementClickable("#continue-button");
         $I->click("#continue-button");
