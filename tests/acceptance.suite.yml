@@ -18,5 +18,8 @@ modules:
                 browser: 'chrome'
                 platform: 'Windows 10'
                 version: 'latest'
+#        - WebDriver:
+#            url: "https://openclassrooms.com"
+#            browser: 'chrome'
         - \Helper\Acceptance
 step_decorators: ~

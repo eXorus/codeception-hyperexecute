@@ -4,14 +4,16 @@ class LoginCest
 {
     public function userCanSignin(AcceptanceTester $I)
     {
+        $I->amOnPage('/');
+
+        $I->setCookie('cmapi_cookie_privacy', 'permit 1 required');
+        $I->setCookie('notice_preferences', '0:');
+        $I->setCookie('notice_gdpr_prefs', '0:');
+        $I->setCookie('notice_behavior', 'expressed,eu');
+
         $I->amOnPage('login');
 
-        $I->waitForElementVisible('iframe.truste_popframe');
-        $I->switchToIFrame("iframe.truste_popframe");
-        $I->waitForElementClickable('a.required');
-        $I->click('a.required');
-
-        $I->waitForElementVisible('#fielduserEmail', 60);
+        $I->waitForElementVisible('#fielduserEmail');
         $I->fillField("#fielduserEmail", "hyperexecute@mc5.email");
         $I->waitForElementClickable("#continue-button");
         $I->click("#continue-button");
@@ -25,8 +27,8 @@ class LoginCest
         $I->makeHtmlSnapshot();
         $I->makeScreenshot();
 
-        // Selenium Docker in local: 9.47s
-        // Selenium with LambdaTests: 13.76s
+        // Selenium Docker in local: 6.21s
+        // Selenium with LambdaTests: 11.74s
 
     }
 }

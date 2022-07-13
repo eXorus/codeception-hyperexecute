@@ -1,0 +1,40 @@
+---
+version: 0.1
+globalTimeout: 150
+testSuiteTimeout: 150
+testSuiteStep: 150
+
+runson: win
+retryOnFailure: true
+
+maxRetries: 5
+concurrency: 4
+
+env:
+  # PAT: ${{ .secrets.testKey }}
+  CACHE_DIR: m2_cache_dir
+
+cacheKey: '{{ checksum "pom.xml" }}'
+cacheDirectories:
+  - $CACHE_DIR
+
+matrix:
+  tests: ["Test_1", "Test_2", "Test_3", "Test_4" ]
+
+# shell: bash
+
+pre:
+  - composer install
+
+post:
+  - cat yaml/win/testng_hyperexecute_matrix_sample.yaml
+
+mergeArtifacts: true
+
+uploadArtefacts:
+  - name: ExecutionSnapshots
+    path:
+      - tests/_output/**
+
+testSuites:
+  -  ./vendor/bin/codecept run
