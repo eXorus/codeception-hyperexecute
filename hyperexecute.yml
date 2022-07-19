@@ -7,27 +7,21 @@ testSuiteStep: 150
 runson: win
 retryOnFailure: true
 
-maxRetries: 5
-concurrency: 4
+maxRetries: 2
+concurrency: 2
 
-env:
-  # PAT: ${{ .secrets.testKey }}
-  CACHE_DIR: m2_cache_dir
-
-cacheKey: '{{ checksum "pom.xml" }}'
+cacheKey: '{{ checksum "composer.lock" }}'
 cacheDirectories:
-  - $CACHE_DIR
+  - vendor
 
 matrix:
-  tests: ["Test_1", "Test_2", "Test_3", "Test_4" ]
+  tests: ["tests\\acceptance\\LoginCest.php","tests\\acceptance\\HyperCest.php" ]
 
-# shell: bash
 
 pre:
+  - composer update
   - composer install
 
-post:
-  - cat yaml/win/testng_hyperexecute_matrix_sample.yaml
 
 mergeArtifacts: true
 
@@ -37,4 +31,4 @@ uploadArtefacts:
       - tests/_output/**
 
 testSuites:
-  -  ./vendor/bin/codecept run
+  -  vendor\bin\codecept run $tests
